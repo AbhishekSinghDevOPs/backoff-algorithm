@@ -1,2 +1,4 @@
 # backoff-algorithm
 
+# Slow Start Backoff Algorithm for Ad-Hoc Wireless Networks
+Abstract—Binary exponential backoff (BEB) algorithm, the defacto standard contention resolution algorithm providing collision avoidance over ad hoc wireless networks, has several technical limitations. For instance, high collision rate problem, unfair channel access, and throughput degradation are several widely known issues. In this paper, a self-adaptive backoff algorithm, namely slow start backoff (SSB) algorithm, is proposed and analyzed for ad hoc networks. Numerical results show that the proposed SSB algorithm outperforms the legacy BEB algorithm. Inadditiontothetheoretical analysis,simulationswere conducted to verify the analysis, showing that the proposed scheme works very well in ad hoc wireless networks.
