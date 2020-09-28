@@ -1,0 +1,87 @@
+#include <cstdlib> 
+#include <iostream> 
+#include <math.h> 
+#include <random> 
+#include <string> 
+#include <time.h>   
+using namespace std; 
+void signal(int array_ACKNOWLEDGEMENT[]) 
+{ 
+    srand(time_t(0)); 
+    for (int i = 0; i < 5; i++) { 
+        array_ACKNOWLEDGEMENT[i] = rand() % 2; 
+    } 
+} 
+void SlowStartBackoff(int Wm, int Wo, int Wn, 
+                        int Wi, int array_ACKNOWLEDGEMENT[]) 
+{ 
+    int BackoffWindowSize = 0; 
+    for (int j = 0; j < 5; j++) { 
+        if (array_ACKNOWLEDGEMENT[j] == 1) { 
+            cout << "Successful transmission" << endl; 
+            if (Wi <= Wn) { 
+                if (Wi == Wo) { 
+                    BackoffWindowSize = Wo; 
+                    cout << "Backoff Window Size is:-->" 
+                            << BackoffWindowSize << endl; 
+                } 
+                else { 
+                    BackoffWindowSize = Wi / 2; 
+                    cout << "Backoff Window Size is:-->" 
+                            << BackoffWindowSize << endl; 
+                } 
+            } 
+            else { 
+                BackoffWindowSize = Wi - Wo; 
+                cout << "Backoff Window Size is:-->" 
+                        << BackoffWindowSize << endl; 
+            } 
+        } 
+        else { 
+            if (Wi < Wn) { 
+                BackoffWindowSize = Wi * 2; 
+                cout << "Backoff Window Size is:-->" 
+                        << BackoffWindowSize << endl; 
+            } 
+            else { 
+                cout << "Frame lost due to collision"
+                        <<" or interference"; 
+            } 
+            if (BackoffWindowSize == Wn) { 
+                BackoffWindowSize = Wn; 
+                cout << "Backoff Window Size is:-->" 
+                        << BackoffWindowSize << endl 
+                            << endl; 
+            } 
+            else { 
+                BackoffWindowSize = Wi + Wo; 
+                cout << "Backoff Window Size is:-->" 
+                        << BackoffWindowSize << endl; 
+            } 
+        } 
+    } 
+} 
+  
+ 
+int main() 
+{ 
+    int Wm, Wo, Wn, Wi; 
+    int array_ACKNOWLEDGEMENT[5]; 
+  
+    Wo = 32; 
+    Wn = 1024; 
+     cout << "Enter the Threshold value:"; 
+    cin >> Wm; 
+    cout << "Enter the Current Backoff window size:-"; 
+    cin >> Wi; 
+    signal(array_ACKNOWLEDGEMENT); 
+    SlowStartBackoff(Wm, Wo, Wn, Wi, array_ACKNOWLEDGEMENT); 
+  
+    return 0; 
+} 
+
+
+//W0 -->  Initial backoff window size
+//Wm -->  Threshold
+//Wn -->  Maximum backoff window size
+//ACK --> Acknowledgement
