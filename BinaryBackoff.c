@@ -1,3 +1,4 @@
+// test commit froom new machine
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
